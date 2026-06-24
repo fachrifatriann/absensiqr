@@ -1,5 +1,8 @@
-// lib/constants.dart
-class AppConstants {
-  // Gunakan 10.0.2.2 jika uji coba via Emulator Android, atau ganti ke IP PC jika pakai HP fisik
-  static const String baseUrl = "http://10.0.2.2:8000/api"; 
+import 'package:flutter/material.dart';
+
+class AppColors {
+  static const Color primary = Color(0xff1E90FF); // Biru Mentari
+  static const Color background = Color(0xffF8F9FA);
+  static const Color textDark = Color(0xff212529);
+  static const Color textGrey = Color(0xff6C757D);
 }
