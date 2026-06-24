@@ -59,7 +59,7 @@ class _MahasiswaDashboardState extends State<MahasiswaDashboard> {
           IconButton(
             icon: const Icon(Icons.qr_code_scanner),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const ScanQRScreen())).then((_) => _fetchDashboardData());
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const QrCodeScreen())).then((_) => _fetchDashboardData());
             },
           )
         ],
