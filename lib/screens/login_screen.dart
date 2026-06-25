@@ -42,22 +42,18 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              // --- DIUPDATE: Mengganti Icon Gembok dengan Gambar Logo Transparan Anda ---
+              SizedBox(
                 width: 120,
                 height: 120,
-                decoration: const BoxDecoration(
-                  color: Color(0xffE8F4FF),
-                  shape: BoxShape.circle,
-                ),
-                child: const Icon(
-                  Icons.lock_person_outlined,
-                  size: 64,
-                  color: AppColors.primary,
+                child: Image.asset(
+                  'lib/assets/images/absensiqrremovebg.png',
+                  fit: BoxFit.contain,
                 ),
               ),
               const SizedBox(height: 24),
               const Text(
-                'Presensi Mobile',
+                'Abensi QR UMB',
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: AppColors.textDark),
               ),
               const SizedBox(height: 8),

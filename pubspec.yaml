@@ -52,10 +52,17 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
 
-  # --- TAMBAHAN: Package untuk generator ikon ---
+  # Package untuk generator ikon
   flutter_launcher_icons: ^0.13.1
 
-# --- TAMBAHAN: Konfigurasi ikon aplikasi ---
+  flutter_native_splash: ^2.4.0
+
+flutter_native_splash:
+  color: "#FFFFFF" # Latar belakang splash screen jadi putih
+  image: "lib/assets/images/absensiqrremovebg.png" # Menggunakan logo tanpa background
+  android: true
+  ios: true
+
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
@@ -73,9 +80,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # --- TAMBAHAN: Mendaftarkan aset gambar ikon ---
   assets:
     - lib/assets/images/absensiqr.png
+    - lib/assets/images/absensiqrremovebg.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
