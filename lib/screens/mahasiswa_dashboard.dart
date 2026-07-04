@@ -41,6 +41,13 @@ class _MahasiswaDashboardState extends State<MahasiswaDashboard> {
       'status': 'Alpa',
       'topik': 'Implementasi Convolutional Neural Network (CNN) untuk Computer Vision'
     },
+    {
+      'date': '10 April 2026', 
+      'time': '--:-- WIB', 
+      'matkul': 'Kecerdasan Buatan', 
+      'status': 'Sakit',
+      'topik': 'Pengenalan Computer Vision'
+    },
   ];
 
   // FUNGSI POP-UP KONFIRMASI LOGOUT UNTUK MAHASISWA (Sama dengan Dosen)
@@ -136,7 +143,7 @@ class _MahasiswaDashboardState extends State<MahasiswaDashboard> {
                 width: double.infinity,
                 height: 52,
                 child: ElevatedButton.icon(
-                  onPressed: () => _showLogoutDialog(context), // Mengaktifkan Pop-up interaktif tengah layar
+                  onPressed: () => _showLogoutDialog(context),
                   icon: const Icon(Icons.logout_rounded, color: Colors.white, size: 20),
                   label: const Text('Keluar Aplikasi', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                   style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, elevation: 0, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14))),
@@ -157,6 +164,7 @@ class _MahasiswaDashboardState extends State<MahasiswaDashboard> {
   Widget build(BuildContext context) {
     int totalHadir = mockHistoryData.where((e) => e['status'] == 'Hadir').length;
     int totalIzin = mockHistoryData.where((e) => e['status'] == 'Izin').length;
+    int totalSakit = mockHistoryData.where((e) => e['status'] == 'Sakit').length;
     int totalAlpa = mockHistoryData.where((e) => e['status'] == 'Alpa').length;
 
     String materiFlutter = SharedState.apakahDosenSudahIsiTopik && SharedState.matkulAktif == 'Pemrograman Mobile (Flutter)'
@@ -209,11 +217,13 @@ class _MahasiswaDashboardState extends State<MahasiswaDashboard> {
                   ),
                 ),
                 const SizedBox(height: 20),
+                // URUTAN DIUBAH: Alpa -> Hadir -> Izin -> Sakit
                 Row(
                   children: [
+                    _buildStatCard(context, totalAlpa.toString(), 'Alpa', Colors.red),
                     _buildStatCard(context, totalHadir.toString(), 'Hadir', Colors.green),
                     _buildStatCard(context, totalIzin.toString(), 'Izin', Colors.orange),
-                    _buildStatCard(context, totalAlpa.toString(), 'Alpa', Colors.red),
+                    _buildStatCard(context, totalSakit.toString(), 'Sakit', Colors.blue),
                   ],
                 ),
                 const SizedBox(height: 24),
@@ -262,8 +272,8 @@ class _MahasiswaDashboardState extends State<MahasiswaDashboard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(label, style: const TextStyle(color: AppColors.textGrey)),
-                    const Icon(Icons.keyboard_arrow_right, size: 16, color: AppColors.textGrey),
+                    Text(label, style: const TextStyle(color: AppColors.textGrey, fontSize: 12)),
+                    const Icon(Icons.keyboard_arrow_right, size: 14, color: AppColors.textGrey),
                   ],
                 ),
               ],
@@ -375,8 +385,29 @@ class HistoryDetailScreen extends StatelessWidget {
                   child: ListTile(
                     contentPadding: const EdgeInsets.all(16),
                     leading: CircleAvatar(
-                      backgroundColor: statusFilter == 'Hadir' ? Colors.green.withValues(alpha: 0.1) : statusFilter == 'Izin' ? Colors.orange.withValues(alpha: 0.1) : Colors.red.withValues(alpha: 0.1),
-                      child: Icon(statusFilter == 'Hadir' ? Icons.check_circle_outline : statusFilter == 'Izin' ? Icons.info_outline : Icons.cancel_outlined, color: statusFilter == 'Hadir' ? Colors.green : statusFilter == 'Izin' ? Colors.orange : Colors.red),
+                      backgroundColor: statusFilter == 'Hadir' 
+                          ? Colors.green.withValues(alpha: 0.1) 
+                          : statusFilter == 'Izin' 
+                              ? Colors.orange.withValues(alpha: 0.1) 
+                              : statusFilter == 'Sakit'
+                                  ? Colors.blue.withValues(alpha: 0.1)
+                                  : Colors.red.withValues(alpha: 0.1),
+                      child: Icon(
+                        statusFilter == 'Hadir' 
+                            ? Icons.check_circle_outline 
+                            : statusFilter == 'Izin' 
+                                ? Icons.info_outline 
+                                : statusFilter == 'Sakit'
+                                    ? Icons.healing_outlined
+                                    : Icons.cancel_outlined, 
+                        color: statusFilter == 'Hadir' 
+                            ? Colors.green 
+                            : statusFilter == 'Izin' 
+                                ? Colors.orange 
+                                : statusFilter == 'Sakit'
+                                    ? Colors.blue
+                                    : Colors.red
+                      ),
                     ),
                     title: Text(item['matkul'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
                     subtitle: Column(
@@ -392,7 +423,16 @@ class HistoryDetailScreen extends StatelessWidget {
                     ),
                     trailing: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(color: statusFilter == 'Hadir' ? Colors.green : statusFilter == 'Izin' ? Colors.orange : Colors.red, borderRadius: BorderRadius.circular(8)),
+                      decoration: BoxDecoration(
+                        color: statusFilter == 'Hadir' 
+                            ? Colors.green 
+                            : statusFilter == 'Izin' 
+                                ? Colors.orange 
+                                : statusFilter == 'Sakit'
+                                    ? Colors.blue
+                                    : Colors.red, 
+                        borderRadius: BorderRadius.circular(8)
+                      ),
                       child: Text(statusFilter, style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold)),
                     ),
                   ),
